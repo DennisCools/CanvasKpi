@@ -51,6 +51,8 @@ cd <<ProjectMap>>/src/
 dotnet ef migrations add <<MigrationName>>> --project CompetenceProfilingInfrastructure -s CanvasKpiLti -c DatabaseContext --verbose
 dotnet ef database update --project CompetenceProfilingInfrastructure -s CanvasKpiLti -c DatabaseContext --verbose
 
+dotnet ef migrations add --project src/CompetenceProfilingInfrastructure/CompetenceProfilingInfrastructure.csproj --startup-project src/CanvasKpiLti/CanvasKpiLti.csproj --context CompetenceProfilingInfrastructure.Data.DatabaseContext --configuration Debug --verbose WebCacheTable --output-dir Migrations
+
 # Caching
 // https://learn.microsoft.com/en-us/aspnet/core/performance/caching/distributed?view=aspnetcore-7.0
 // https://dejanstojanovic.net/aspnet/2018/may/using-idistributedcache-in-net-core-just-got-a-lot-easier/
