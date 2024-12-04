@@ -46,11 +46,12 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             <div>
+                <a href="https://github.com/DennisCools/CanvasKpi" target="_blank">Doe mee en verbeter de Code op GitHub!</a>
                 <p style="font-size: 9px"> Thanks to: Agterberg Robin, Dauphin Pascal, Cools Dennis, Laarakkers Edwin and chrisgeene.nl for the UI! </p>
-                 @if (User.CanvasClaims().IsCanvasInstructor())
-                 {
-                     <a class="" asp-area="" asp-controller="Home" asp-action="HomeIndex" asp-route-session="@User.CanvasClaims().CanvasCourseId">Home</a>
-                 }
+                @if (User.CanvasClaims().IsCanvasInstructor())
+                {
+                    <a class="" asp-area="" asp-controller="Home" asp-action="HomeIndex" asp-route-session="@User.CanvasClaims().CanvasCourseId">Home</a>
+                }
             </div>
         </div>
     </footer>
