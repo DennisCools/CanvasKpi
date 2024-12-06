@@ -1,0 +1,39 @@
+﻿services:
+  MsSql:
+    image: mcr.microsoft.com/mssql/server:latest
+    environment:
+      ACCEPT_EULA: Yes
+      MSSQL_SA_PASSWORD: MyPass@word
+      MSSQL_PID: Evaluation
+      MSSQL_USER: SA
+    ports:
+        - 8433:1433 
+  CanvasKpiLti:
+    depends_on:
+      MsSql:
+        condition: service_started
+    image: canvaskpilti
+    build:
+      context: .
+      dockerfile: src/CanvasKpiLti/Dockerfile
+    ports:
+      - 8000:80
+      - 8001:443
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+        - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_Kestrel__Certificates__Default__Password=MyPass@word
+        - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+        - ConnectionStrings__CanvasKpiLtiContext=Server=mssql,1433;Database=CanvasCpDbDocker;User ID=sa;Password=MyPass@word;TrustServerCertificate=True
+        - CanvasApi__baseUrl=http://localhost:3000
+        - CanvasLti__ConsumerSecret=MyPass@word
+        - CanvasLti__LtiCourseLoginPath=/LtiLaunch/Launch
+        - CanvasLti__RedirectAfterLogin=/home/DoOauth
+        - CanvasOAuth__ClientId=10000000000001
+        - CanvasOAuth__ClientSecret=MyPass@word
+        - CanvasOAuth__AuthorizationEndpoint=http://localhost:3000/login/oauth2/auth
+        - CanvasOAuth__TokenEndpoint=http://localhost:3000/login/oauth2/token
+        - CanvasOAuth__CallbackPath=/LTILaunch/Oauth2Response/
+        
+    volumes:
+        - ./https:/https:ro

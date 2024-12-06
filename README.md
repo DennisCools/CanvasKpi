@@ -71,3 +71,7 @@ info
 https://plantuml.com
 https://github.com/Zingam/UML-in-Markdown/blob/master/README.md
 https://blog.jetbrains.com/dotnet/2020/10/06/create-uml-diagrams-using-plantuml/
+
+## https in Docker
+https://learn.microsoft.com/en-us/aspnet/core/security/docker-compose-https?view=aspnetcore-9.0#windows-using-linux-containers
+

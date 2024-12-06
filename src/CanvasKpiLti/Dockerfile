@@ -1,22 +1,27 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["CanvasKpi/CanvasKpi.csproj", "CanvasKpi/"]
-RUN dotnet restore "CanvasKpi/CanvasKpi.csproj"
+
+COPY ["src/CanvasIdentity/CanvasIdentity.csproj", "src/CanvasIdentity/"]
+COPY ["src/CompetenceProfilingDomain/CompetenceProfilingDomain.csproj", "src/CompetenceProfilingDomain/"]
+COPY ["src/CompetenceProfilingInfrastructure/CompetenceProfilingInfrastructure.csproj", "src/CompetenceProfilingInfrastructure/"]
+COPY ["src/CanvasKpiLti/CanvasKpiLti.csproj", "src/CanvasKpiLti/"]
+RUN dotnet restore "src/CanvasKpiLti/CanvasKpiLti.csproj"
 COPY . .
-WORKDIR "/src/CanvasKpi"
-RUN dotnet build "CanvasKpi.csproj" -c Release -o /app/build
+
+WORKDIR "/src/src/CanvasKpiLti"
+RUN dotnet build "CanvasKpiLti.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CanvasKpi.csproj" -c Release -o /app/publish
+RUN dotnet publish "CanvasKpiLti.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CanvasKpi.dll"]
+ENTRYPOINT ["dotnet", "CanvasKpiLti.dll"]
