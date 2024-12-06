@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{A60D4F8C-B
 		README.md = README.md
 		NavCourseMenu.md = NavCourseMenu.md
 		uml.puml = uml.puml
+		docker-compose.yml = docker-compose.yml
+		https\httpscert.md = https\httpscert.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CanvasIdentity", "src\CanvasIdentity\CanvasIdentity.csproj", "{872B8592-917A-48E7-947C-FF9126457CD9}"
