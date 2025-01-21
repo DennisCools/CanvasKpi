@@ -11,9 +11,9 @@ namespace CompetenceProfilingInfrastructure.Data
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
-//
+#if DEBUG
             base.Database.Migrate();
-//#endif
+#endif
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
