@@ -19,6 +19,8 @@ public class CardCollection
         _assignmentRubricDao = assignmentRubricDao;
         _assignmentRubricCriteriaRatingDao = assignmentRubricCriteriaRatingDao;
         _distributedCache = distributedCache;
+        
+        
     }
 
     // public List<Card> GetAllCards(int courseId, int assignmentId, int userId)

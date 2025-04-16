@@ -33,6 +33,9 @@ namespace CompetenceProfilingInfrastructure.Data
                     r => r.HasOne(typeof(TreeRootCanvasDto)).WithMany().HasForeignKey("TreeRootId")
                         .HasPrincipalKey(nameof(TreeRootCanvasDto.Id)),
                     j => j.HasKey("OutcomesLmsId", "TreeRootId"));
+            
+            //https://learn.microsoft.com/en-us/ef/core/modeling/data-seeding 
+            
         }
 
         public DbSet<StudentAdviceDto> StudentAdvices { get; set; } = null!;

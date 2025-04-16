@@ -63,6 +63,8 @@ namespace CanvasKpiLti.Controllers
                  cachedTimeUtc = "New time Cached";
             }
             
+            cachedTimeUtc = DateTime.UtcNow.ToString(CultureInfo.CurrentCulture);
+            
             ViewData["cachedTimeUTC"] = cachedTimeUtc;
             return View();
         }
