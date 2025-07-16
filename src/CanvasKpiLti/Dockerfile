@@ -9,10 +9,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 # create map in container /sourcecode
 WORKDIR /sourcecode
 
-COPY ["src/CanvasIdentity/CanvasIdentity.csproj", "src/CanvasIdentity/"]
-COPY ["src/CompetenceProfilingDomain/CompetenceProfilingDomain.csproj", "src/CompetenceProfilingDomain/"]
-COPY ["src/CompetenceProfilingInfrastructure/CompetenceProfilingInfrastructure.csproj", "src/CompetenceProfilingInfrastructure/"]
-COPY ["src/CanvasKpiLti/CanvasKpiLti.csproj", "src/CanvasKpiLti/"]
+COPY ["./src/CanvasIdentity/CanvasIdentity.csproj", "src/CanvasIdentity/"]
+COPY ["./src/CompetenceProfilingDomain/CompetenceProfilingDomain.csproj", "src/CompetenceProfilingDomain/"]
+COPY ["./src/CompetenceProfilingInfrastructure/CompetenceProfilingInfrastructure.csproj", "src/CompetenceProfilingInfrastructure/"]
+COPY ["./src/CanvasKpiLti/CanvasKpiLti.csproj", "src/CanvasKpiLti/"]
 # run dotnet restore in container map /sourcecode
 RUN dotnet restore "src/CanvasKpiLti/CanvasKpiLti.csproj"
 # copy locale map CanvasKpi to container map sourcecode
