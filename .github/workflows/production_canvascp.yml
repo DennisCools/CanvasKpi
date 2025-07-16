@@ -34,13 +34,13 @@ jobs:
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
     
     - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output ${{env.DOTNET_ROOT}}/myapp
     
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        path: ${{env.DOTNET_ROOT}}/myapp
   
   deploy:
     runs-on: ubuntu-latest
@@ -53,7 +53,7 @@ jobs:
         path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         
     - name: Deploy to Azure WebApp
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         slot-name: 'Production'
