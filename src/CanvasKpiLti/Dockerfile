@@ -13,6 +13,8 @@ COPY ["./src/CanvasIdentity/CanvasIdentity.csproj", "src/CanvasIdentity/"]
 COPY ["./src/CompetenceProfilingDomain/CompetenceProfilingDomain.csproj", "src/CompetenceProfilingDomain/"]
 COPY ["./src/CompetenceProfilingInfrastructure/CompetenceProfilingInfrastructure.csproj", "src/CompetenceProfilingInfrastructure/"]
 COPY ["./src/CanvasKpiLti/CanvasKpiLti.csproj", "src/CanvasKpiLti/"]
+
+RUN ls -R
 # run dotnet restore in container map /sourcecode
 RUN dotnet restore "src/CanvasKpiLti/CanvasKpiLti.csproj"
 # copy locale map CanvasKpi to container map sourcecode
