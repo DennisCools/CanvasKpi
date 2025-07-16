@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: CanvasCp
-  AZURE_WEBAPP_PACKAGE_PATH: src\CanvasKpiLti\published
+  AZURE_WEBAPP_PACKAGE_PATH: publishedpakage
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: src\CanvasKpiLti
@@ -34,13 +34,13 @@ jobs:
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
     
     - name: Publish
-      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish "${{ env.WORKING_DIRECTORY }}" --configuration ${{ env.CONFIGURATION }} --no-build --output ${{env.DOTNET_ROOT}}/myapppublished
     
     - name: Publish Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: webapp
-        path: ${{env.DOTNET_ROOT}}/myapp
+        path: ${{env.DOTNET_ROOT}}/myapppublished
   
   deploy:
     runs-on: ubuntu-latest
