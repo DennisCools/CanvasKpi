@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Web App CanvasKpi
 on:
   push:
     branches:
-    - main
+    - offmain
 env:
   AZURE_WEBAPP_NAME: CanvasKpi
   AZURE_WEBAPP_PACKAGE_PATH: src\CanvasKpiLti\published
