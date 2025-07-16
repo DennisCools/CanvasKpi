@@ -1,4 +1,5 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+# CanvasKpi % DOCKER_BUILDKIT=0 docker build --no-cache -f ./src/CanvasKpiLti/Dockerfile .  ("." !!!)
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
@@ -8,15 +9,12 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 # create map in container /sourcecode
 WORKDIR /sourcecode
-RUN echo "Debugging files at $(date):" && ls -R
 
 COPY ["./src/CanvasIdentity/CanvasIdentity.csproj", "src/CanvasIdentity/"]
 COPY ["./src/CompetenceProfilingDomain/CompetenceProfilingDomain.csproj", "src/CompetenceProfilingDomain/"]
 COPY ["./src/CompetenceProfilingInfrastructure/CompetenceProfilingInfrastructure.csproj", "src/CompetenceProfilingInfrastructure/"]
-RUN echo "Debugging files at $(date):" && ls -R
 COPY ["./src/CanvasKpiLti/CanvasKpiLti.csproj", "src/CanvasKpiLti/"]
 
-RUN echo "Debugging files at $(date):" && ls -R
 # run dotnet restore in container map /sourcecode
 RUN dotnet restore "src/CanvasKpiLti/CanvasKpiLti.csproj"
 # copy locale map CanvasKpi to container map sourcecode
@@ -25,8 +23,9 @@ RUN dotnet restore "src/CanvasKpiLti/CanvasKpiLti.csproj"
 #           +CanvasKpiLti
 #           +CanvasIdentity
 #           +...
+RUN echo "Debugging files at $(date):" && ls -R
 COPY . .
-
+RUN echo "Debugging files at after copy $(date):" && ls -R
 WORKDIR "/sourcecode/src/CanvasKpiLti"
 RUN dotnet build "CanvasKpiLti.csproj" -c Release -o /app/build
 # make an new images(publish) from image build (dotnet sdk images)
