@@ -12,7 +12,7 @@
     depends_on:
       MsSql:
         condition: service_started
-    image: canvaskpilti
+    image: ghcr.io/denniscools/canvaskpi:latest
     build:
       context: .
       dockerfile: src/CanvasKpiLti/Dockerfile
