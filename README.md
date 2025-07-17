@@ -1,4 +1,4 @@
-0.1 test fork upstream :-) 
+Tag v0.1
 
 # Canvas Kpi Tool Ovp Open
 Dotnetcore MVC webapp met ms sql database.
