@@ -1,4 +1,4 @@
-Tag v0.1
+tag v0.0.2
 
 # Canvas Kpi Tool Ovp Open
 Dotnetcore MVC webapp met ms sql database.
