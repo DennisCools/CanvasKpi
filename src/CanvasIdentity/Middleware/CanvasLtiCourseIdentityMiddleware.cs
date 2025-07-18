@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using CanvasIdentity.Exceptions;
 using Microsoft.AspNetCore.Http;
-using LtiLibrary.AspNetCore.Extensions;
+//using LtiLibrary.AspNetCore.Extensions;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using CanvasIdentity.Helpers;
+using CanvasIdentity.LtiLibrary.AspNetCore.Extensions;
 using CanvasIdentity.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Logging;

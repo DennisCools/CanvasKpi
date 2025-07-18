@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using CanvasIdentity.Exceptions;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,8 +35,8 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         WebApplicationBuilder(builder);
         var app = builder.Build();
-        app.Logger.LogInformation("DC0=>Start application");
-       
+        app.Logger.LogInformation("DC0=>Info logger Start application ");
+        Debug.WriteLine("DC0=>Debug logger Start application");
         
         _configuration = app.Configuration;
         
@@ -50,7 +52,9 @@ public class Program
             app.UseHsts();
         }
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
+        
+        app.UseForwardedHeaders();
         app.UseStaticFiles();
 
         app.UseRouting();
@@ -77,6 +81,14 @@ public class Program
 
     private static void WebApplicationBuilder(WebApplicationBuilder builder)
     {
+        builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        { //https://seankilleen.com/2020/06/solved-net-core-azure-ad-in-docker-container-incorrectly-uses-an-non-https-redirect-uri/
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                                       ForwardedHeaders.XForwardedProto;
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
+        });
+        
         builder.Services.AddDbContext<IRepository, DatabaseContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("CanvasKpiLtiContext") ??
                                  throw new InvalidOperationException(
