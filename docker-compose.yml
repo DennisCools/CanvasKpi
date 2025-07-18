@@ -17,11 +17,11 @@
       context: .
       dockerfile: src/CanvasKpiLti/Dockerfile
     ports:
-      - 8000:80
-      - 8001:443
+      - 8000:8080
+      - 8001:8081
     environment:
         - ASPNETCORE_ENVIRONMENT=Development
-        - ASPNETCORE_URLS=https://+:443;http://+:80
+        - ASPNETCORE_URLS=https://+:8081;http://+:8080
         - ASPNETCORE_Kestrel__Certificates__Default__Password=MyPass@word
         - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
         - ConnectionStrings__CanvasKpiLtiContext=Server=mssql,1433;Database=CanvasCpDbDocker;User ID=sa;Password=MyPass@word;TrustServerCertificate=True

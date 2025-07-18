@@ -18,6 +18,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace CanvasKpiLti;
 
@@ -27,15 +28,23 @@ public class Program
 
     public static void Main(string[] args)
     {
+       
+        
         var builder = WebApplication.CreateBuilder(args);
         WebApplicationBuilder(builder);
         var app = builder.Build();
+        app.Logger.LogInformation("DC0=>Start application");
+       
         
         _configuration = app.Configuration;
         
         app.UseCanvasUseExceptionHandler();
         if (!app.Environment.IsDevelopment())
         {
+            
+            string secLengtApp = app.Configuration["CanvasLti:ConsumerSecret"] ?? throw new InvalidOperationException("CanvasLti:ConsumerSecret not found.");
+            if(secLengtApp.Length < 12)  throw new Exception("ConsumerSecret to short is required x> 12.");
+            app.Logger.LogInformation("DC0=>ConsumerSecret to short check passed");
             //app.UseExceptionHandler("/Home/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
