@@ -1,8 +1,5 @@
 name: CanvasCp Azure Build and deploy
 on:
-  push:
-    branches:
-      - Production
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: CanvasCp
