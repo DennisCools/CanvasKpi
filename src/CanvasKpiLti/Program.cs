@@ -156,6 +156,7 @@ public class Program
         {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("User-Agent", "CanvasKpi");
             client.BaseAddress = new Uri(_configuration["CanvasApi:baseUrl"] + "/api/graphql");
         });
 
@@ -163,6 +164,7 @@ public class Program
         {
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("User-Agent", "CanvasKpi");
             client.BaseAddress = new Uri(_configuration["CanvasApi:baseUrl"]!);
         });
 
