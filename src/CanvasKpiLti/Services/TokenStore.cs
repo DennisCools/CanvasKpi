@@ -15,6 +15,7 @@ public class TokenStore
 {
     private readonly IConfiguration _configuration;
     private readonly HttpContext _httpContext;
+    private readonly IHttpClientFactory _httpClientFactory;
 
     private string? _token;
     public string? Token {
@@ -30,10 +31,11 @@ public class TokenStore
     private DateTime ExpiresAt { get; set; }
 
 
-    public TokenStore(IHttpContextAccessor httpContextAccessor,IConfiguration configuration)
+    public TokenStore(IHttpContextAccessor httpContextAccessor, IConfiguration configuration, IHttpClientFactory httpClientFactory)
     {
         _configuration = configuration;
         _httpContext = httpContextAccessor.HttpContext ?? throw new Exception("httpContext is null");
+        _httpClientFactory = httpClientFactory;
         
         Debug.WriteLine("GetToken from httpContextAccessor");
         _token = _httpContext.GetTokenAsync("token", "access_token").Result;
@@ -80,7 +82,8 @@ public class TokenStore
             new ("refresh_token", refreshToken)
         };
         var queryString = new FormUrlEncodedContent(pairs);
-        using var client = new HttpClient();
+        using var client = _httpClientFactory.CreateClient();
+        client.DefaultRequestHeaders.Add("User-Agent", "CanvasKpi");
         var response =  client.PostAsync(oauthTokenUrl, queryString).Result;
 
         if (response.IsSuccessStatusCode)
